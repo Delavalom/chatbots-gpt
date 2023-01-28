@@ -2,6 +2,7 @@ import TelegramBot from "node-telegram-bot-api";
 import { config } from "dotenv";
 import invariant from "tiny-invariant";
 import { Configuration, OpenAIApi } from "openai";
+import { brotliCompressSync } from "zlib";
 
 config();
 const configuration = new Configuration({
@@ -22,11 +23,17 @@ bot.on("message", async (msg) => {
         max_tokens: 250,
     })
 
-    console.log(baseCompletion.data.usage?.prompt_tokens)
-    const basePromptOuput = baseCompletion.data.choices.pop()
-
     const chatId = msg.chat.id
 
-    invariant(basePromptOuput?.text, "Couldn't recieve something from open ai")
+    bot.sendMessage(chatId, "please wait a few seconds")
+
+    const basePromptOuput = baseCompletion.data.choices.pop()
+
+    if(!basePromptOuput?.text) {
+        return bot.sendMessage(chatId, "please try again, AI couldn't send the data")
+    }
+
     bot.sendMessage(chatId, basePromptOuput?.text)
 })
+
+bot.on("error", (err) => console.log(err))
