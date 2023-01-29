@@ -20,7 +20,7 @@ bot.on("message", async (msg) => {
         model: 'text-davinci-003',
         prompt: `${msg.text}.\n`,
         temperature: 0.8,
-        max_tokens: 250,
+        max_tokens: 1000,
     })
 
     const chatId = msg.chat.id
