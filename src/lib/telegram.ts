@@ -6,4 +6,4 @@ config()
 const token = process.env.TELEGRAM_BOT_TOKEN;
 invariant(token, "Couldn't read the telegram token enviroment variable");
 
-export const bot = new TelegramBot(token, { polling: true });
+export const telegram = new TelegramBot(token, { polling: true });

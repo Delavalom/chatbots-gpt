@@ -34,7 +34,7 @@ export async function redisMethods() {
   ) {
     let key = id.toString();
     try {
-      return redis.set(key, JSON.stringify(messages));
+      return redis.set(key, JSON.stringify(messages), { ex:  21600 }); // data expires in 6 hours 
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);
