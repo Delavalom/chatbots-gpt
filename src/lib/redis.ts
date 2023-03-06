@@ -1,20 +1,25 @@
 import { Messages } from "@/lib/openai.js";
-import { Redis } from "ioredis";
+// use this import if you are running a nodejs v17 and earlier, for higher versions import without the with-fetch
+import { Redis } from '@upstash/redis/with-fetch'
 import invariant from "tiny-invariant";
 
-const redisURL = process.env.UPSTASH_REDIS_URL;
+const url = process.env.UPSTASH_URL;
+const token = process.env.UPSTASH_TOKEN;
 
-invariant(redisURL, "Couldn't read the redis url enviroment variable");
+invariant(url, "Couldn't read the redis url enviroment variable");
+invariant(token, "Couldn't read the redis token enviroment variable");
 
-const redis = new Redis(redisURL);
+const redis = new Redis({
+  url,
+  token
+});
 
 export async function redisMethods() {
   async function get(id: number | string) {
     let key = id.toString();
     try {
-      const payload = await redis.get(key);
-      if (!payload) return payload as null | undefined
-      return JSON.parse(payload) as Messages;
+      const payload = await redis.get<Messages>(key);
+      return payload
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);
