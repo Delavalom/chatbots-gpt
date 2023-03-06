@@ -1,5 +1,5 @@
-import TelegramBot from "node-telegram-bot-api";
 import { config } from "dotenv";
+import TelegramBot from "node-telegram-bot-api";
 import invariant from "tiny-invariant";
 
 config()

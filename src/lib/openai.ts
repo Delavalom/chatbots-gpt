@@ -6,6 +6,8 @@ import {
 import invariant from "tiny-invariant";
 import { config } from "dotenv";
 
+export type Messages = CreateChatCompletionRequest["messages"]
+
 config();
 const apiKey = process.env.OPENAI_API_KEY;
 

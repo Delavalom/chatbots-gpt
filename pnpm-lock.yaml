@@ -1,12 +1,12 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@types/node': ^18.14.2
-  '@types/node-telegram-bot-api': ^0.61.2
+  '@types/node': ^18.14.6
+  '@types/node-telegram-bot-api': ^0.61.3
   dotenv: ^16.0.3
   ioredis: ^5.3.1
   node-telegram-bot-api: ^0.61.0
-  nodemon: ^2.0.20
+  nodemon: ^2.0.21
   openai: ^3.2.1
   tiny-invariant: ^1.3.1
   ts-node: ^10.9.1
@@ -20,10 +20,10 @@ dependencies:
   tiny-invariant: 1.3.1
 
 devDependencies:
-  '@types/node': 18.14.2
-  '@types/node-telegram-bot-api': 0.61.2
-  nodemon: 2.0.20
-  ts-node: 10.9.1_ellgaeuoqnti3hful2ny2iugba
+  '@types/node': 18.14.6
+  '@types/node-telegram-bot-api': 0.61.3
+  nodemon: 2.0.21
+  ts-node: 10.9.1_alpjt73dvgv6kni625hu7f2l4m
   typescript: 4.9.5
 
 packages:
@@ -75,22 +75,22 @@ packages:
     resolution: {integrity: sha512-6ckxMjBBD8URvjB6J3NcnuAn5Pkl7t3TizAg+xdlzzQGSPSmBcXf8KoIH0ua/i+tio+ZRUHEXp0HEmvaR4kt0w==}
     dev: true
 
-  /@types/node-telegram-bot-api/0.61.2:
-    resolution: {integrity: sha512-ZbImQoPN7ZQeBWcN9g/aN3Kqt3Ko2nZX5DPgwWchhhIG/Ul0kYXjj0/bPpVg44ZS9fJM2+yRgATeRpnVK6qnmQ==}
+  /@types/node-telegram-bot-api/0.61.3:
+    resolution: {integrity: sha512-Z6VFc/k4/z70RxlJ9pp/efBj4vsEnRo1UAkweN3sbGNDa4o4jJj5YNx1pshIikTyxCB2UWszKAV64xpgN5CxGg==}
     dependencies:
-      '@types/node': 18.14.2
+      '@types/node': 18.14.6
       '@types/request': 2.48.8
     dev: true
 
-  /@types/node/18.14.2:
-    resolution: {integrity: sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==}
+  /@types/node/18.14.6:
+    resolution: {integrity: sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==}
     dev: true
 
   /@types/request/2.48.8:
     resolution: {integrity: sha512-whjk1EDJPcAR2kYHRbFl/lKeeKYTi05A15K9bnLInCVroNDCtXce57xKdI0/rQaA3K+6q0eFyUBPmqfSndUZdQ==}
     dependencies:
       '@types/caseless': 0.12.2
-      '@types/node': 18.14.2
+      '@types/node': 18.14.6
       '@types/tough-cookie': 4.0.2
       form-data: 2.5.1
     dev: true
@@ -373,7 +373,7 @@ packages:
       has-proto: 1.0.1
       has-symbols: 1.0.3
       internal-slot: 1.0.5
-      is-array-buffer: 3.0.1
+      is-array-buffer: 3.0.2
       is-callable: 1.2.7
       is-negative-zero: 2.0.2
       is-regex: 1.1.4
@@ -661,8 +661,8 @@ packages:
       - supports-color
     dev: false
 
-  /is-array-buffer/3.0.1:
-    resolution: {integrity: sha512-ASfLknmY8Xa2XtB4wmbz13Wu202baeA18cJBCeCy0wXUHZF0IPyVEXqKEcd+t2fNSLLL1vC6k7lxZEojNbISXQ==}
+  /is-array-buffer/3.0.2:
+    resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.2.0
@@ -876,8 +876,8 @@ packages:
       - supports-color
     dev: false
 
-  /nodemon/2.0.20:
-    resolution: {integrity: sha512-Km2mWHKKY5GzRg6i1j5OxOHQtuvVsgskLfigG25yTtbyfRGn/GNvIbRyOf1PSCKJ2aT/58TiuUsuOU5UToVViw==}
+  /nodemon/2.0.21:
+    resolution: {integrity: sha512-djN/n2549DUtY33S7o1djRCd7dEm0kBnj9c7S9XVXqRUbuggN1MZH/Nqa+5RFQr63Fbefq37nFXAE9VU86yL1A==}
     engines: {node: '>=8.10.0'}
     hasBin: true
     dependencies:
@@ -1197,7 +1197,7 @@ packages:
       punycode: 2.3.0
     dev: false
 
-  /ts-node/10.9.1_ellgaeuoqnti3hful2ny2iugba:
+  /ts-node/10.9.1_alpjt73dvgv6kni625hu7f2l4m:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -1216,7 +1216,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.14.2
+      '@types/node': 18.14.6
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
