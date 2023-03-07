@@ -1,5 +1,5 @@
 {
-  "name": "chatbots-gpt3",
+  "name": "chatbots-gpt",
   "version": "1.0.1",
   "main": "index.js",
   "type": "module",
