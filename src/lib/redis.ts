@@ -9,7 +9,7 @@ const token = process.env.UPSTASH_TOKEN;
 invariant(url, "Couldn't read the redis url enviroment variable");
 invariant(token, "Couldn't read the redis token enviroment variable");
 
-const redis = new Redis({
+export const redis = new Redis({
   url,
   token
 });
