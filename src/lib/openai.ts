@@ -21,7 +21,7 @@ const openai = new OpenAIApi(configuration);
 export async function generate(messages: Messages): Promise<{ message: string }> {
   try {
     const chatCompletion = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages,
     });
     const payload = chatCompletion.data.choices.pop();
