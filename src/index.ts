@@ -47,6 +47,10 @@ whatsapp.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
 });
 
+whatsapp.on('remote_session_saved', () => {
+  console.log("Remote Session stored!");
+})
+
 whatsapp.on("ready", () => {
   console.log("Whatsapp client is ready!");
 });
@@ -55,7 +59,7 @@ whatsapp.initialize();
 
 // messages only trigger ai generation by the prefix of "bot:"
 whatsapp.on("message", async (msg) => {
-  if (!msg.body.toLowerCase().startsWith("bot:")) return;
+  if (!msg.body.toLowerCase().startsWith("b:")) return;
 
   const { id } = msg.id;
 

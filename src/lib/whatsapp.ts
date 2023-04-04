@@ -1,68 +1,60 @@
-import { Client } from "whatsapp-web.js";
-import fs from 'fs';
+import ws from "whatsapp-web.js";
+import fs from "fs";
+import {
+  DeleteObjectCommand,
+  GetObjectCommand,
+  ListObjectsCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
+import { s3Client } from "./s3.js";
+import { config } from "dotenv";
 
-export const whatsapp = new Client({});
 
+config()
 
+const Bucket = process.env.BUCKET;
 
-// function createStore () {
+export const whatsapp = new ws.Client({
+  authStrategy: new ws.RemoteAuth({
+    store: createStore(s3Client),
+    backupSyncIntervalMs: 300000,
+  }),
+});
 
+function createStore(s3Client: S3Client) {
+  return {
+    sessionExists: async (options: { session: string }) => {
+      const multiDeviceCollection = await s3Client.send(
+        new ListObjectsCommand({ Bucket })
+      );
+      const hasExistingSession = multiDeviceCollection.Contents?.some(
+        (obj) => obj.Key === `whatsapp-${options.session}`
+      );
+      return !!hasExistingSession;
+    },
+    save: async (options: { session: string }) => {
+      const Body = fs.readFileSync(`${options.session}.zip`, "utf-8");
+      await s3Client.send(
+        new PutObjectCommand({
+          Bucket,
+          Key: `whatsapp-${options.session}`,
+          Body,
+        })
+      );
+    },
+    extract: async (options: { session: string; path: string }) => {
+      const document = await s3Client.send(
+        new GetObjectCommand({ Bucket, Key: `whatsapp-${options.session}` })
+      );
+      const bodyToString = await document.Body?.transformToString();
 
-
-//     return {
-//         sessionExists: async (options)  =>  {
-//             let multiDeviceCollection = this.mongoose.connection.db.collection(`whatsapp-${options.session}.files`);
-//             let hasExistingSession = await multiDeviceCollection.countDocuments();
-//             return !!hasExistingSession;   
-//         }
-        
-//         async save(options) {
-//             var bucket = new this.mongoose.mongo.GridFSBucket(this.mongoose.connection.db, {
-//                 bucketName: `whatsapp-${options.session}`
-//             });
-//             await new Promise((resolve, reject) => {
-//                 fs.createReadStream(`${options.session}.zip`)
-//                     .pipe(bucket.openUploadStream(`${options.session}.zip`))
-//                     .on('error', err => reject(err))
-//                     .on('close', () => resolve());
-//             });
-//             options.bucket = bucket;
-//             await this.#deletePrevious(options);
-//         }
-
-//         async extract(options) {
-//             var bucket = new this.mongoose.mongo.GridFSBucket(this.mongoose.connection.db, {
-//                 bucketName: `whatsapp-${options.session}`
-//             });
-//             return new Promise((resolve, reject) => {
-//                 bucket.openDownloadStreamByName(`${options.session}.zip`)
-//                     .pipe(fs.createWriteStream(options.path))
-//                     .on('error', err => reject(err))
-//                     .on('close', () => resolve());
-//             });
-//         }
-
-//         async delete(options) {
-//             var bucket = new this.mongoose.mongo.GridFSBucket(this.mongoose.connection.db, {
-//                 bucketName: `whatsapp-${options.session}`
-//             });
-//             const documents = await bucket.find({
-//                 filename: `${options.session}.zip`
-//             }).toArray();
-
-//             documents.map(async doc => {
-//                 return bucket.delete(doc._id);
-//             });   
-//         }
-
-//         async #deletePrevious(options) {
-//             const documents = await options.bucket.find({
-//                 filename: `${options.session}.zip`
-//             }).toArray();
-//             if (documents.length > 1) {
-//                 const oldSession = documents.reduce((a, b) => a.uploadDate < b.uploadDate ? a : b);
-//                 return options.bucket.delete(oldSession._id);   
-//             }
-//         }
-//     }
-// }
+      fs.writeFileSync(options.path, bodyToString!);
+    },
+    delete: async (options: { session: string }) => {
+      await s3Client.send(
+        new DeleteObjectCommand({ Bucket, Key: `whatsapp-${options.session}` })
+      );
+    },
+  };
+}

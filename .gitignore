@@ -216,4 +216,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Wwebjs_auth  remote files
+.wwebjs_auth/
+RemoteAuth.zip
+
 # End of https://www.toptal.com/developers/gitignore/api/linux,windows,macos,node
