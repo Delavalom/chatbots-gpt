@@ -1,9 +1,6 @@
-import { config } from "dotenv";
+import { envVariables } from "@/env.js";
 import TelegramBot from "node-telegram-bot-api";
-import invariant from "tiny-invariant";
 
-config()
-const token = process.env.TELEGRAM_BOT_TOKEN;
-invariant(token, "Couldn't read the telegram token enviroment variable");
+const token = envVariables().TELEGRAM_BOT_TOKEN
 
 export const telegram = new TelegramBot(token, { polling: true });

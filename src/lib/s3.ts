@@ -1,9 +1,8 @@
+import { envVariables } from "@/env.js";
 import { S3Client } from "@aws-sdk/client-s3";
-import { config } from "dotenv";
 
-config();
 
-const REGION = process.env.REGION;
+const REGION = envVariables()?.REGION;
 
 export const s3Client = new S3Client({
   region: REGION,

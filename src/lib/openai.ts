@@ -1,24 +1,22 @@
+import { envVariables } from "@/env.js";
 import {
-  type CreateChatCompletionRequest,
   Configuration,
   OpenAIApi,
+  type CreateChatCompletionRequest,
 } from "openai";
-import invariant from "tiny-invariant";
-import { config } from "dotenv";
 
-export type Messages = CreateChatCompletionRequest["messages"]
+export type Messages = CreateChatCompletionRequest["messages"];
 
-config();
-const apiKey = process.env.OPENAI_API_KEY;
-
-invariant(apiKey, "Couldn't read the openai apiKey url enviroment variable");
+const apiKey = envVariables().OPENAI_API_KEY;
 
 const configuration = new Configuration({
   apiKey,
 });
 const openai = new OpenAIApi(configuration);
 
-export async function generate(messages: Messages): Promise<{ message: string }> {
+export async function generate(
+  messages: Messages
+): Promise<{ message: string }> {
   try {
     const chatCompletion = await openai.createChatCompletion({
       model: "gpt-4",

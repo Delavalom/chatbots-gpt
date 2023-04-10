@@ -1,10 +1,4 @@
 import ws from "whatsapp-web.js";
-import { s3Client } from "./s3.js";
-import { config } from "dotenv";
-
-
-config();
-
 
 export const whatsapp = new ws.Client({
   authStrategy: new ws.LocalAuth()
