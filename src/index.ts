@@ -1,8 +1,8 @@
-import { whatsapp } from "./lib/whatsapp.js";
-import { Messages, generate } from "./lib/openai.js";
-import { redisMethods } from "./lib/redis.js";
-import { telegram } from "./lib/telegram.js";
 import qrcode from "qrcode-terminal";
+import { Messages, generate } from "~/lib/openai.js";
+import { whatsapp } from "~/lib/whatsapp.js";
+import { redisMethods } from "~/lib/redis.js";
+import { telegram } from "~/lib/telegram.js";
 
 telegram.on("message", async (msg) => {
   if (!msg.text) return;

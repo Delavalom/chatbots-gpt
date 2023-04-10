@@ -1,4 +1,4 @@
-import { envVariables } from "@/env.js";
+import { envVariables } from "~/env.js";
 import {
   Configuration,
   OpenAIApi,

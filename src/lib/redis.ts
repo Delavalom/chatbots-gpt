@@ -1,5 +1,5 @@
-import { envVariables } from "@/env.js";
-import { Messages } from "@/lib/openai.js";
+import { envVariables } from "~/env.js";
+import { Messages } from "~/lib/openai.js";
 // use this import if you are running a nodejs v17 and earlier, for higher versions import without the with-fetch
 import { Redis } from "@upstash/redis/with-fetch";
 

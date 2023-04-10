@@ -1,4 +1,4 @@
-import { envVariables } from "@/env.js";
+import { envVariables } from "~/env.js";
 import { S3Client } from "@aws-sdk/client-s3";
 
 

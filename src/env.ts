@@ -22,13 +22,6 @@ const envSchema = z.object({
   AWS_SECRET_ACCESS_KEY_ID: z.string().min(1, { message: "" }).optional(),
 });
 
-/**
- * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
- * middlewares) or client-side so we need to destruct manually.
- *
- * @type {Record<keyof z.infer<typeof server> | keyof z.infer<typeof client>, string | undefined>}
- */
-
 export const processEnv = {
   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
