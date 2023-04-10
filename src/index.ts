@@ -26,17 +26,13 @@ telegram.on("message", async (msg) => {
     return;
   }
 
-  const nextMessages = [
-    ...messages,
-    { role: "user", content: msg.text },
-  ] satisfies Messages;
-  const generation = await generate(nextMessages);
+  messages.push({ role: "user", content: msg.text });
+  const generation = await generate(messages);
 
   telegram.sendMessage(id, generation.message);
-  set(id, [
-    ...nextMessages,
-    { role: "assistant", content: generation.message },
-  ]);
+
+  messages.push({ role: "assistant", content: generation.message });
+  set(id, messages);
 });
 
 telegram.on("error", (err) => console.log(err.message));
@@ -47,9 +43,9 @@ whatsapp.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
 });
 
-whatsapp.on('remote_session_saved', () => {
+whatsapp.on("remote_session_saved", () => {
   console.log("Remote Session stored!");
-})
+});
 
 whatsapp.on("ready", () => {
   console.log("Whatsapp client is ready!");
@@ -70,7 +66,7 @@ whatsapp.on("message", async (msg) => {
   if (!messages) {
     const initialGeneration = [
       { role: "system", content: "You are a helpful assistant" },
-      { role: "user", content: msg.body.replace("bot:", "")  },
+      { role: "user", content: msg.body.replace("bot:", "") },
     ] satisfies Messages;
     const generation = await generate(initialGeneration);
     msg.reply(generation.message);
@@ -81,16 +77,11 @@ whatsapp.on("message", async (msg) => {
     return;
   }
 
-  const nextMessages = [
-    ...messages,
-    { role: "user", content: msg.body.replace("bot:", "") },
-  ] satisfies Messages;
-  const generation = await generate(nextMessages);
+  messages.push({ role: "user", content: msg.body.replace("b:", "") });
+  const generation = await generate(messages);
 
   msg.reply(generation.message);
 
-  set(id, [
-    ...nextMessages,
-    { role: "assistant", content: generation.message },
-  ]);
+  messages.push({ role: "assistant", content: generation.message });
+  set(id, messages);
 });
