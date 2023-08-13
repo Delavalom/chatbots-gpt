@@ -34,3 +34,5 @@ export async function generate(
     return { message: "recieve a error from the ai" };
   }
 }
+
+export type Generate = typeof generate
