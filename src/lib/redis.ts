@@ -45,3 +45,5 @@ export async function redisMethods() {
     set,
   };
 }
+
+export type RedisMethods = typeof redisMethods
