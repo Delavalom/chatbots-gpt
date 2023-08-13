@@ -1,6 +1,5 @@
-import qrcode from "qrcode-terminal";
 import { Messages, generate } from "~/lib/openai.js";
-import { whatsapp } from "~/lib/whatsapp.js";
+import { initializeWhatsapp, whatsapp } from "~/lib/whatsapp.js";
 import { redisMethods } from "~/lib/redis.js";
 import { telegram } from "~/lib/telegram.js";
 
@@ -39,21 +38,10 @@ telegram.on("error", (err) => console.log(err.message));
 
 // _________________________________________________________________whatsapp under this lines
 
-whatsapp.on("qr", (qr) => {
-  qrcode.generate(qr, { small: true });
-});
 
-whatsapp.on("remote_session_saved", () => {
-  console.log("Remote Session stored!");
-});
+initializeWhatsapp()
 
-whatsapp.on("ready", () => {
-  console.log("Whatsapp client is ready!");
-});
-
-whatsapp.initialize();
-
-// messages only trigger ai generation by the prefix of "bot:"
+// whatsapp messages only trigger ai generation by the prefix of "bot:"
 whatsapp.on("message", async (msg) => {
   if (!msg.body.toLowerCase().startsWith("b:")) return;
 
@@ -77,7 +65,7 @@ whatsapp.on("message", async (msg) => {
     return;
   }
 
-  messages.push({ role: "user", content: msg.body.replace("b:", "") });
+  messages.push({ role: "user", content: msg.body.replace("bot:", "") });
   const generation = await generate(messages);
 
   msg.reply(generation.message);
