@@ -7,7 +7,7 @@ const token = envVariables().TELEGRAM_BOT_TOKEN;
 
 export const telegram = new TelegramBot(token, { polling: true });
 
-export async function handleTelegramMessageasync(
+export async function handleTelegramMessage(
   msg: TelegramBot.Message,
   redisMethods: RedisMethods,
   generate: Generate
