@@ -1,4 +1,3 @@
-import { envVariables } from "~/env.js";
 import {
   Configuration,
   OpenAIApi,
@@ -7,7 +6,7 @@ import {
 
 export type Messages = CreateChatCompletionRequest["messages"];
 
-const apiKey = envVariables().OPENAI_API_KEY;
+const apiKey = process.env.OPENAI_API_KEY;
 
 const configuration = new Configuration({
   apiKey,
