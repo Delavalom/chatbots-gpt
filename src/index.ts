@@ -1,12 +1,25 @@
-import { handleTelegramMessage, telegram } from "~/lib/telegram.js";
-import { handleWhatsappMessage, initializeWhatsapp, whatsapp } from "~/lib/whatsapp.js";
+import { handleTelegramMessage } from "~/lib/telegram.js";
+import { handleWhatsappMessage, initializeWhatsapp } from "~/lib/whatsapp.js";
 import { redisMethods } from "./lib/redis.js";
 import { generate } from "./lib/openai.js";
+import TelegramBot from "node-telegram-bot-api";
+import ws from "whatsapp-web.js";
 
-telegram.on("message", (msg) => handleTelegramMessage(msg, redisMethods, generate))
+const token = process.env.TELEGRAM_BOT_TOKEN;
 
-telegram.on("error", (err) => console.log(err.message));
+function main() {
+    const telegram = new TelegramBot(token, { polling: true });
+    const whatsapp = new ws.Client({
+        authStrategy: new ws.LocalAuth(),
+      });
 
-initializeWhatsapp()
+    telegram.on("message", (msg) => handleTelegramMessage(telegram, msg, redisMethods, generate))
+    
+    telegram.on("error", (err) => console.log(err.message));
+    
+    initializeWhatsapp(whatsapp)
+    
+    whatsapp.on("message", (msg) => handleWhatsappMessage(msg, redisMethods, generate))
+}
 
-whatsapp.on("message", (msg) => handleWhatsappMessage(msg, redisMethods, generate))
+main()

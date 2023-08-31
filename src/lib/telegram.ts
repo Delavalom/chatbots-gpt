@@ -1,13 +1,9 @@
-import { envVariables } from "~/env.js";
-import TelegramBot from "node-telegram-bot-api";
-import { RedisMethods } from "./redis.js";
-import { Generate, Messages } from "./openai.js";
-
-const token = envVariables().TELEGRAM_BOT_TOKEN;
-
-export const telegram = new TelegramBot(token, { polling: true });
+import type TelegramBot from "node-telegram-bot-api";
+import type { RedisMethods } from "./redis.js";
+import type { Generate, Messages } from "./openai.js";
 
 export async function handleTelegramMessage(
+  telegram: TelegramBot,
   msg: TelegramBot.Message,
   redisMethods: RedisMethods,
   generate: Generate

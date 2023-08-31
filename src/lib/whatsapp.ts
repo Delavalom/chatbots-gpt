@@ -1,14 +1,10 @@
-import ws from "whatsapp-web.js";
+import type ws from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
 import WAWebJS from "whatsapp-web.js";
 import { RedisMethods } from "./redis.js";
 import { Generate, Messages } from "./openai.js";
 
-export const whatsapp = new ws.Client({
-  authStrategy: new ws.LocalAuth(),
-});
-
-export function initializeWhatsapp() {
+export function initializeWhatsapp(whatsapp: ws.Client) {
   whatsapp.on("qr", (qr) => {
     qrcode.generate(qr, { small: true });
   });
@@ -22,6 +18,8 @@ export function initializeWhatsapp() {
   });
 
   whatsapp.initialize();
+
+  whatsapp.on("auth_failure", (message) => console.log(message))
 }
 
 export async function handleWhatsappMessage(
