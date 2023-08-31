@@ -1,10 +1,9 @@
-import { envVariables } from "~/env.js";
 import { Messages } from "~/lib/openai.js";
 // use this import if you are running a nodejs v17 and earlier, for higher versions import without the with-fetch
 import { Redis } from "@upstash/redis/with-fetch";
 
-const url = envVariables().UPSTASH_URL;
-const token = envVariables().UPSTASH_TOKEN;
+const url = process.env.UPSTASH_URL;
+const token = process.env.UPSTASH_TOKEN;
 
 export const redis = new Redis({
   url,
