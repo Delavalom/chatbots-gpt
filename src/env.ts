@@ -1,9 +1,6 @@
-import { config } from "dotenv";
 import { z } from "zod";
 
-config();
-
-const envVariables = z.object({
+export const envVariables = z.object({
   TELEGRAM_BOT_TOKEN: z
   .string()
   .min(1, { message: "The telegram bot token hasn't been set" }),

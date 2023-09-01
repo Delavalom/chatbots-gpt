@@ -1,13 +1,17 @@
-import { handleTelegramMessage } from "~/lib/telegram.js";
-import { handleWhatsappMessage, initializeWhatsapp } from "~/lib/whatsapp.js";
+import { handleTelegramMessage } from "./lib/telegram.js";
+import { handleWhatsappMessage, initializeWhatsapp } from "./lib/whatsapp.js";
 import { redisMethods } from "./lib/redis.js";
 import { generate } from "./lib/openai.js";
 import TelegramBot from "node-telegram-bot-api";
 import ws from "whatsapp-web.js";
+import { envVariables } from "./env.js";
+import { config } from "dotenv";
 
-const token = process.env.TELEGRAM_BOT_TOKEN;
+config();
 
 function main() {
+    envVariables.parse(process.env)
+    const token = process.env.TELEGRAM_BOT_TOKEN;
     const telegram = new TelegramBot(token, { polling: true });
     const whatsapp = new ws.Client({
         authStrategy: new ws.LocalAuth(),
