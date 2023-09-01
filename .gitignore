@@ -219,5 +219,6 @@ $RECYCLE.BIN/
 # Wwebjs_auth  remote files
 .wwebjs_auth/
 RemoteAuth.zip
+.wwebjs_cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,windows,macos,node
