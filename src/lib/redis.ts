@@ -1,16 +1,7 @@
-import { Messages } from "~/lib/openai.js";
-// use this import if you are running a nodejs v17 and earlier, for higher versions import without the with-fetch
-import { Redis } from "@upstash/redis/with-fetch";
+import type { Messages } from "~/lib/openai.js";
+import type { Redis } from "@upstash/redis";
 
-const url = process.env.UPSTASH_URL;
-const token = process.env.UPSTASH_TOKEN;
-
-export const redis = new Redis({
-  url,
-  token,
-});
-
-export async function redisMethods() {
+export async function redisMethods(redis: Redis) {
   async function get(id: number | string) {
     let key = id.toString();
     try {
