@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "build": "tsc",
-    "start": "node ./dist/index.js"
+    "start": "tsc && node ./dist/index.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.400.0",
