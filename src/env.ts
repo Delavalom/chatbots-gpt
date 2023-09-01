@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { config } from "dotenv";
+
+config();
 
 export const envVariables = z.object({
   TELEGRAM_BOT_TOKEN: z
@@ -18,8 +21,6 @@ export const envVariables = z.object({
   AWS_ACCESS_KEY_ID: z.string().min(1, { message: "" }).optional(),
   AWS_SECRET_ACCESS_KEY_ID: z.string().min(1, { message: "" }).optional(),
 });
-
-envVariables.parse(process.env)
 
 declare global {
   namespace NodeJS {
