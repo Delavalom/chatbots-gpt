@@ -1,28 +1,23 @@
 import {
-  Configuration,
-  OpenAIApi,
-  type CreateChatCompletionRequest,
+  OpenAI
 } from "openai";
 
-export type Messages = CreateChatCompletionRequest["messages"];
+export type Messages = OpenAI.Chat.CompletionCreateParamsNonStreaming["messages"];
 
 const apiKey = process.env.OPENAI_API_KEY;
 
-const configuration = new Configuration({
-  apiKey,
-});
-const openai = new OpenAIApi(configuration);
+const openai = new OpenAI({apiKey});
 
 export async function generate(
   messages: Messages
 ): Promise<{ message: string }> {
   try {
-    const chatCompletion = await openai.createChatCompletion({
+    const chatCompletion = await openai.chat.completions.create({
       model: "gpt-4",
       messages,
     });
-    const payload = chatCompletion.data.choices.pop();
-    if (!payload?.message) {
+    const payload = chatCompletion.choices.pop();
+    if (!payload || !payload.message.content) {
       return { message: "recieve a response from the ai but comes empty" };
     }
     return { message: payload.message.content };
