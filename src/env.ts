@@ -19,7 +19,7 @@ export const envVariables = z.object({
   BUCKET: z.string().min(1, { message: "" }).optional(),
   REGION: z.string().min(1, { message: "" }).optional(),
   AWS_ACCESS_KEY_ID: z.string().min(1, { message: "" }).optional(),
-  AWS_SECRET_ACCESS_KEY_ID: z.string().min(1, { message: "" }).optional(),
+  AWS_SECRET_ACCESS_KEY: z.string().min(1, { message: "" }).optional(),
 });
 
 declare global {

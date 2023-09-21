@@ -1,28 +1,10 @@
-import type ws from "whatsapp-web.js";
-import qrcode from "qrcode-terminal";
+
 import WAWebJS from "whatsapp-web.js";
 import { RedisMethods } from "./redis.js";
 import { Generate, Messages } from "./openai.js";
 import type { Redis } from "@upstash/redis";
 import type OpenAI from "openai";
 
-export function initializeWhatsapp(whatsapp: ws.Client) {
-  whatsapp.on("qr", (qr) => {
-    qrcode.generate(qr, { small: true });
-  });
-
-  whatsapp.on("remote_session_saved", () => {
-    console.log("Remote Session stored!");
-  });
-
-  whatsapp.on("ready", () => {
-    console.log("Whatsapp client is ready!");
-  });
-
-  whatsapp.initialize();
-
-  whatsapp.on("auth_failure", (message) => console.log(message))
-}
 
 export async function handleWhatsappMessage(
   openai: OpenAI,
